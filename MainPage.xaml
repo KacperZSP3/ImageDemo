@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ImageDemo.MainPage">
+
+   <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- ============================================================ -->
+            <!-- NAGŁÓWEK APLIKACJI                                           -->
+            <!-- ============================================================ -->
+            <Label Text="Lekcja 46: Image control i źródła obrazów"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <BoxView HeightRequest="2"
+                     Color="Gray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 1: OBRAZ LOKALNY                                      -->
+            <!-- >>> Sekcja 3.2: Ładowanie obrazu lokalnego        -->
+            <!--                                                              -->
+            <!-- Obrazy lokalne pochodzą z folderu Resources\Images.          -->
+            <!-- Wystarczy podać nazwę pliku jako wartość Source.              -->
+            <!-- .NET MAUI automatycznie tworzy FileImageSource.              -->
+            <!-- Patrz też: Sekcja 2.1 (folder Resources\Images, MauiImage)  -->
+            <!-- ============================================================ -->
+            <Label Text="1. Obraz lokalny (FileImageSource)"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="Źródło: Resources\Images\dotnet_bot.png"
+                   FontSize="12"
+                   TextColor="Gray" />
+
+            <!--
+                Sekcja 3.2 — Najprostszy sposób ładowania obrazu lokalnego.
+                Source="dotnet_bot.png" — .NET MAUI szuka tego pliku
+                w folderze Resources\Images (Sekcja 2.1).
+
+                Sekcja 4.1 — Aspect="AspectFit" zachowuje proporcje obrazu
+                i dopasowuje go do dostępnej przestrzeni.
+            -->
+            <Image Source="dotnet_bot.png"
+                   Aspect="AspectFit"
+                   HeightRequest="150"
+                   HorizontalOptions="Center" />
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 2: OBRAZ ZDALNY (URI)                                 -->
+            <!-- >>>Sekcja 3.3: Ładowanie obrazu zdalnego         -->
+            <!--                                                              -->
+            <!-- Obrazy zdalne pobierane są z internetu za pomocą URI.        -->
+            <!-- .NET MAUI automatycznie tworzy UriImageSource.               -->
+            <!-- ============================================================ -->
+            <Label Text="2. Obraz zdalny (UriImageSource)"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="Źródło: https://aka.ms/campus.jpg"
+                   FontSize="12"
+                   TextColor="Gray" />
+
+            <!--
+                Sekcja 3.3 — Podanie pełnego URI jako Source powoduje
+                automatyczne utworzenie UriImageSource.
+                URI musi zawierać protokół (https://).
+            -->
+            <Image Source="https://aka.ms/campus.jpg"
+                   Aspect="AspectFill"
+                   HeightRequest="200" />
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 3: OBRAZ ZDALNY Z KONFIGURACJĄ CACHE                  -->
+            <!-- >>>Sekcja 5: Cache'owanie obrazów zdalnych       -->
+            <!--                                                              -->
+            <!-- Domyślnie cache trwa 1 dzień. Można to zmienić              -->
+            <!-- za pomocą właściwości CacheValidity i CachingEnabled          -->
+            <!-- klasy UriImageSource.                                        -->
+            <!-- ============================================================ -->
+            <Label Text="3. Obraz zdalny z cache 10 dni"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="CacheValidity = 10:00:00:00 (10 dni)"
+                   FontSize="12"
+                   TextColor="Gray" />
+
+            <!--
+                Sekcja 5 — Konfiguracja cache'owania.
+                Zamiast prostego stringa w Source, używamy jawnie
+                obiektu UriImageSource z właściwościami:
+                - Uri: adres obrazu
+                - CacheValidity: czas przechowywania w cache
+                  (format dni:godziny:minuty:sekundy)
+                - CachingEnabled: czy cache jest włączony (domyślnie true)
+            -->
+            <Image x:Name="ObrazZCache">
+                <Image.Source>
+                    <UriImageSource Uri="https://aka.ms/campus.jpg"
+                                    CacheValidity="10:00:00:00" />
+                </Image.Source>
+            </Image>
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 4: TRYBY SKALOWANIA (Aspect)                          -->
+            <!-- >>>Sekcja 4: Skalowanie obrazów                  -->
+            <!--                                                              -->
+            <!-- Właściwość Aspect kontroluje jak obraz jest dopasowywany     -->
+            <!-- do dostępnej przestrzeni. Cztery tryby:                       -->
+            <!-- AspectFit, AspectFill, Fill, Center                          -->
+            <!-- ============================================================ -->
+            <Label Text="4. Tryby skalowania (Aspect)"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <!--
+                Sekcja 4.1 — Demonstracja wszystkich trybów Aspect.
+                Każdy obraz ma takie same wymiary (150x150),
+                ale różny tryb skalowania.
+            -->
+
+            <!-- AspectFit: cały obraz widoczny, mogą być puste paski -->
+            <Label Text="AspectFit — cały obraz, zachowane proporcje:"
+                   FontSize="13" />
+            <Frame HeightRequest="150" WidthRequest="150"
+                   HorizontalOptions="Center"
+                   BackgroundColor="LightGray"
+                   Padding="0">
+                <Image Source="dotnet_bot.png"
+                       Aspect="AspectFit" />
+            </Frame>
+
+            <!-- AspectFill: wypełnia obszar, przycina nadmiar -->
+            <Label Text="AspectFill — wypełnia obszar, przycina nadmiar:"
+                   FontSize="13" />
+            <Frame HeightRequest="150" WidthRequest="150"
+                   HorizontalOptions="Center"
+                   IsClippedToBounds="True"
+                   Padding="0">
+                <Image Source="dotnet_bot.png"
+                       Aspect="AspectFill" />
+            </Frame>
+
+            <!-- Fill: rozciąga obraz do pełnych wymiarów -->
+            <Label Text="Fill — rozciąga, proporcje mogą się zmienić:"
+                   FontSize="13" />
+            <Frame HeightRequest="150" WidthRequest="150"
+                   HorizontalOptions="Center"
+                   Padding="0">
+                <Image Source="dotnet_bot.png"
+                       Aspect="Fill" />
+            </Frame>
+
+            <!-- Center: obraz wyśrodkowany, oryginalny rozmiar -->
+            <Label Text="Center — oryginalny rozmiar, wyśrodkowany:"
+                   FontSize="13" />
+            <Frame HeightRequest="150" WidthRequest="150"
+                   HorizontalOptions="Center"
+                   BackgroundColor="LightGray"
+                   Padding="0">
+                <Image Source="dotnet_bot.png"
+                       Aspect="Center" />
+            </Frame>
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 5: DYNAMICZNA ZMIANA ASPECT                           -->
+            <!-- >>>Sekcja 4.1: Tryby skalowania                  -->
+            <!--                                                              -->
+            <!-- Interaktywna demonstracja — przycisk zmienia tryb            -->
+            <!-- skalowania cyklicznie między AspectFit, AspectFill, Fill.    -->
+            <!-- ============================================================ -->
+            <Label Text="5. Dynamiczna zmiana Aspect (kliknij przycisk)"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Frame HeightRequest="200"
+                   HorizontalOptions="FillAndExpand"
+                   IsClippedToBounds="True"
+                   Padding="0">
+                <!--
+                    x:Name pozwala odwoływać się do tego elementu w C#.
+                    Aspect jest zmieniany dynamicznie w code-behind
+                    (patrz MainPage.xaml.cs, metoda OnZmienAspectClicked).
+                -->
+                <Image x:Name="ObrazDynamicznyAspect"
+                       Source="dotnet_bot.png"
+                       Aspect="AspectFit" />
+            </Frame>
+
+            <Label x:Name="AktualnyAspectLabel"
+                   Text="Aktualny tryb: AspectFit"
+                   HorizontalOptions="Center"
+                   FontSize="14"
+                   TextColor="DarkBlue" />
+
+            <Button Text="Zmień tryb skalowania"
+                    Clicked="OnZmienAspectClicked"
+                    HorizontalOptions="Center" />
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 6: ANIMOWANY GIF                                      -->
+            <!-- >>>Sekcja 6: Animowane GIF-y                     -->
+            <!--                                                              -->
+            <!-- Animowane GIF-y wymagają ustawienia                          -->
+            <!-- IsAnimationPlaying="True", bo domyślnie jest False.          -->
+            <!-- Przycisk pozwala włączać/wyłączać animację.                  -->
+            <!-- ============================================================ -->
+            <Label Text="6. Animowany GIF"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="IsAnimationPlaying kontroluje odtwarzanie animacji"
+                   FontSize="12"
+                   TextColor="Gray" />
+
+            <!--
+                Sekcja 6 — domyślnie IsAnimationPlaying = false,
+                więc GIF nie będzie się animował bez jawnego ustawienia.
+                Tutaj ustawiamy True, by animacja ruszyła od razu.
+                W code-behind jest metoda do włączania/wyłączania.
+
+                UWAGA (Sekcja 6): Animowane GIF-y nie obsługują
+                cache'owania ani ładowania ze strumieni.
+            -->
+            <Image x:Name="AnimowanyGif"
+                   Source="cat.gif"
+                   IsAnimationPlaying="True"
+                   HeightRequest="120"
+                   HorizontalOptions="Center" />
+
+            <Label x:Name="GifStatusLabel"
+                   Text="Animacja: włączona"
+                   HorizontalOptions="Center"
+                   FontSize="14" />
+
+            <Button x:Name="GifToggleButton"
+                    Text="Zatrzymaj animację"
+                    Clicked="OnToggleAnimationClicked"
+                    HorizontalOptions="Center" />
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 7: IMAGEBUTTON                                        -->
+            <!-- >>>Sekcja 7: ImageButton — obraz jako przycisk   -->
+            <!--                                                              -->
+            <!-- ImageButton łączy Image i Button.                            -->
+            <!-- Obsługuje zdarzenia: Clicked, Pressed, Released.             -->
+            <!-- Ma właściwości: BorderColor, BorderWidth, CornerRadius.       -->
+            <!-- ============================================================ -->
+            <Label Text="7. ImageButton — obraz jako przycisk"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="Kliknij ikonę, by zobaczyć reakcję"
+                   FontSize="12"
+                   TextColor="Gray" />
+
+            <!--
+                Sekcja 7 — ImageButton obsługuje zdarzenie Clicked.
+                CornerRadius="30" przy wymiarach 60x60 daje okrągły przycisk.
+                BorderColor i BorderWidth dodają obramowanie.
+
+                ImageButton obsługuje też Command i CommandParameter
+                (wzorzec MVVM).
+            -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+
+                <VerticalStackLayout>
+                    <ImageButton Source="dotnet_bot.png"
+                                 Clicked="OnImageButtonClicked"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 CornerRadius="30"
+                                 BorderColor="DarkBlue"
+                                 BorderWidth="2"
+                                 HorizontalOptions="Center" />
+                    <Label Text="Okrągły"
+                           HorizontalOptions="Center"
+                           FontSize="12" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <ImageButton Source="dotnet_bot.png"
+                                 Clicked="OnImageButtonClicked"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 CornerRadius="10"
+                                 BorderColor="Green"
+                                 BorderWidth="2"
+                                 HorizontalOptions="Center" />
+                    <Label Text="Zaokrąglony"
+                           HorizontalOptions="Center"
+                           FontSize="12" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <ImageButton Source="dotnet_bot.png"
+                                 Clicked="OnImageButtonClicked"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 CornerRadius="0"
+                                 BorderColor="Red"
+                                 BorderWidth="2"
+                                 HorizontalOptions="Center" />
+                    <Label Text="Prostokątny"
+                           HorizontalOptions="Center"
+                           FontSize="12" />
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <Label x:Name="ImageButtonCounterLabel"
+                   Text="Kliknięcia ImageButton: 0"
+                   HorizontalOptions="Center"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="DarkBlue" />
+
+
+            <BoxView HeightRequest="1"
+                     Color="LightGray"
+                     HorizontalOptions="FillAndExpand" />
+
+
+            <!-- ============================================================ -->
+            <!-- SEKCJA 8: OBRAZ ZE STRUMIENIA (tworzony w C#)                -->
+            <!-- >>>Sekcja 3.4: Ładowanie ze strumienia           -->
+            <!--                                                              -->
+            <!-- Obraz ze strumienia jest tworzony dynamicznie w C#.          -->
+            <!-- Przycisk uruchamia ładowanie.                                -->
+            <!-- UWAGA: Cache jest wyłączony na Androidzie (Sekcja 3.4).     -->
+            <!-- ============================================================ -->
+            <Label Text="8. Obraz ze strumienia (StreamImageSource)"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="Tworzony dynamicznie w C# — kliknij przycisk poniżej"
+                   FontSize="12"
+                   TextColor="Gray" />
+
+            <!--
+                Sekcja 3.4 — ImageSource.FromStream() ładuje obraz
+                ze strumienia danych. Używamy x:Name do dostępu w C#.
+                Obraz jest ładowany po kliknięciu przycisku.
+            -->
+            <Image x:Name="ObrazZeStrumienia"
+                   HeightRequest="150"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center" />
+
+            <Button Text="Załaduj obraz ze strumienia (HTTP)"
+                    Clicked="OnLoadFromStreamClicked"
+                    HorizontalOptions="Center" />
+
+
+            <!-- ============================================================ -->
+            <!-- STOPKA                                                       -->
+            <!-- ============================================================ -->
+            <BoxView HeightRequest="2"
+                     Color="Gray"
+                     HorizontalOptions="FillAndExpand" />
+
+            <Label Text="Koniec demo"
+                   HorizontalOptions="Center"
+                   FontSize="14"
+                   TextColor="Gray"
+                   Margin="0,0,0,30" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
