@@ -9,7 +9,7 @@
 //
 // SPIS TREŚCI (odniesienia do lekcji):
 //   - OnZmienAspectClicked()    → Sekcja 4: Skalowanie obrazów (Aspect)
-//   - OnToggleAnimationClicked() → Sekcja 6: Animowane GIF-y
+//   - OnToggleAnimationClicked() → Sekcja 6: Animowane GIF-y 
 //   - OnImageButtonClicked()     → Sekcja 7: ImageButton
 //   - OnLoadFromStreamClicked()  → Sekcja 3.4: Ładowanie ze strumienia
 //   - CreateImageFromCode()      → Sekcja 3.1-3.3: ImageSource i metody
